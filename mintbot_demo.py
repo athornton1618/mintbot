@@ -119,7 +119,7 @@ class GUI:
 
 if __name__ == '__main__':
     #Running_nw = np.zeros(28) #show last 2 weeks, updates 2x a day, init to 0's
-    Running_nw = np.random.rand(28)*3000 + 60000 + np.linspace(60000, 69000, num=28)
+    Running_nw = np.random.rand(28)*3000 + np.linspace(60000, 69000, num=28)
     #Main loop
     while 1:
         print(Running_nw[-1])
