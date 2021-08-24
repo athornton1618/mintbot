@@ -17,9 +17,10 @@ Automatically queries Intuit Mint for display on 5in Raspberry Pi Screen
 cd ~/Documents <br />
 git clone https://github.com/athornton1618/mintbot <br />
 sudo nano /etc/xdg/lxsession/LXDE/autostart <br />
-- //Add these lines <br />
-- @unclutter -idle 0 <br />
-- @/usr/bin/python /home/pi/Documents/mintbot.py <br />
+//Add these lines <br />
+- @unclutter -idle 0 
+- @/usr/bin/python /home/pi/Documents/mintbot.py
+<br />
 sudo reboot <br />
 That's it! Good to go. <br />
 
