@@ -18,11 +18,15 @@ cd ~/Documents <br />
 git clone https://github.com/athornton1618/mintbot <br />
 cd mintbot <br />
 sudo chmod a+x mintbot.py <br />
+nano mintbot.py 
+> Write in Username where prompted <br />
+> Write in Password where prompted <br />
+
 sudo nano /etc/xdg/lxsession/LXDE/autostart <br />
-//Add these lines <br />
-- @unclutter -idle 0 
-- @/usr/bin/python /home/pi/Documents/mintbot.py
-<br />
+> Add these lines 
+>> @unclutter -idle 0 <br />
+>> @/usr/bin/python /home/pi/Documents/mintbot.py <br />
+
 sudo reboot <br />
 That's it! Good to go. <br />
 
