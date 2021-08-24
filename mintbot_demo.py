@@ -5,45 +5,10 @@
 import tkinter as tk
 import pandas as pd
 import os
-import mintapi
 import time
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import numpy as np
-
-def call_mint():
-    #API to Intuit Mint
-    mint = mintapi.Mint(
-    '********',  # YOUR MINT EMAIL HERE
-    '********',  # YOUR MINT PASSWORD HERE
-    # Optional parameters
-    mfa_method='sms',  # Can be 'sms' (default), 'email', or 'soft-token'.
-                       # if mintapi detects an MFA request, it will trigger the requested method
-                       # and prompt on the command line.
-    headless=False,  # Whether the chromedriver should work without opening a
-                     # visible window (useful for server-side deployments)
-    mfa_input_callback=None,  # A callback accepting a single argument (the prompt)
-                              # which returns the user-inputted 2FA code. By default
-                              # the default Python `input` function is used.
-    intuit_account=None, # account name when multiple accounts are registered with this email.
-                         # None will use the default account.
-    session_path=None, # Directory that the Chrome persistent session will be written/read from.
-                       # To avoid the 2FA code being asked for multiple times, you can either set
-                       # this parameter or log in by hand in Chrome under the same user this runs
-                       # as.
-    imap_account=None, # account name used to log in to your IMAP server
-    imap_password=None, # account password used to log in to your IMAP server
-    imap_server=None,  # IMAP server host name
-    imap_folder='INBOX',  # IMAP folder that receives MFA email
-    wait_for_sync=False,  # do not wait for accounts to sync
-    wait_for_sync_timeout=300,  # number of seconds to wait for sync
-    use_chromedriver_on_path=True,  # True will use a system provided chromedriver binary that
-                                     # is on the PATH (instead of downloading the latest version)
-    )
-    #Only care about Net Worth, can update later for credit score, etc
-    Net_Worth = np.round(mint.get_net_worth(),2)
-    mint.close()
-    return Net_Worth
 
 class GUI:
 
