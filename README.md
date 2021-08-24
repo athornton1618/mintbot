@@ -13,6 +13,11 @@ Automatically queries Intuit Mint for display on 5in Raspberry Pi Screen
 1. Setup Raspberry Pi w/ raspian OS
 2. Install LCD display, follow driver setup instructions: https://www.elecrow.com/download/How%20to%20install%20the%20LCD%20driver.pdf
 
+# Packages
+sudo apt update
+sudo apt install python3
+pip3 install pandas matplotlib numpy
+
 # Installation
 cd ~/Documents <br />
 git clone https://github.com/athornton1618/mintbot <br />
