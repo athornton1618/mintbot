@@ -14,9 +14,9 @@ Automatically queries Intuit Mint for display on 5in Raspberry Pi Screen
 2. Install LCD display, follow driver setup instructions: https://www.elecrow.com/download/How%20to%20install%20the%20LCD%20driver.pdf
 
 # Packages
-sudo apt update
-sudo apt install python3
-pip3 install pandas matplotlib numpy
+sudo apt update <br />
+sudo apt install python3 <br />
+pip3 install pandas matplotlib numpy <br />
 
 # Installation
 cd ~/Documents <br />
