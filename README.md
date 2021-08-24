@@ -14,16 +14,16 @@ Automatically queries Intuit Mint for display on 5in Raspberry Pi Screen
 2. Install LCD display, follow driver setup instructions: https://www.elecrow.com/download/How%20to%20install%20the%20LCD%20driver.pdf
 
 # Installation
-cd ~/Documents
-git clone https://github.com/athornton1618/mintbot
-sudo nano /etc/xdg/lxsession/LXDE/autostart
-    //Add these lines
-    @unclutter -idle 0
-    @/usr/bin/python /home/pi/Documents/mintbot.py
-sudo reboot
-That's it! Good to go.
+cd ~/Documents <br />
+git clone https://github.com/athornton1618/mintbot <br />
+sudo nano /etc/xdg/lxsession/LXDE/autostart <br />
+- //Add these lines <br />
+- @unclutter -idle 0 <br />
+- @/usr/bin/python /home/pi/Documents/mintbot.py <br />
+sudo reboot <br />
+That's it! Good to go. <br />
 
 # NOTE
-Occasionally Mint asks for multi-factor authentication
-Might want to set up VNC connection to Rpi to input code manually if that happens
+Occasionally Mint asks for multi-factor authentication <br />
+Might want to set up VNC connection to Rpi to input code manually if that happens <br />
 
