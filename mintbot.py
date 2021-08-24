@@ -72,16 +72,16 @@ class GUI:
         l_1.pack()
 
         #Net Worth label
-        l_2 = tk.Label(self.tk, text = "$" + "{:,}".format(np.rint(Net_Worth)),fg='green', bg='black')
+        l_2 = tk.Label(self.tk, text = "$" + "{:,}".format(np.rint(Net_Worth).astype(int)),fg='green', bg='black')
         l_2.config(font =("Courier", 80))
         l_2.pack()
 
         #Delta label
         last_nw = Running_nw[-2] #updates 2x daily, so back 2 for yesterday
         if Net_Worth - last_nw >=0:
-            l_3 = tk.Label(self.tk, text = "+$" + "{:,}".format(np.rint(Net_Worth-last_nw)),fg='green', bg='black')
+            l_3 = tk.Label(self.tk, text = "+$" + "{:,}".format(np.rint(Net_Worth-last_nw).astype(int)),fg='green', bg='black')
         else:
-            l_3 = tk.Label(self.tk, text = "-$" + "{:,}".format(np.rint(last_nw-Net_Worth)),fg='red', bg='black')
+            l_3 = tk.Label(self.tk, text = "-$" + "{:,}".format(np.rint(last_nw-Net_Worth).astype(int)),fg='red', bg='black')
         l_3.config(font =("Courier", 35))
         l_3.pack()
 
