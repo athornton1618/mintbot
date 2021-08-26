@@ -45,6 +45,12 @@ def call_mint():
     mint.close()
     return Net_Worth
 
+def try_mint():
+    try:
+        return call_mint()
+    except:
+        return try_mint()
+
 class GUI:
 
     def __init__(self,Running_nw):
@@ -62,8 +68,7 @@ class GUI:
         self.tk.bind("<Escape>", self.end_fullscreen)
         self.tk.configure(background='black')
 
-        #Fresh call to Mint API
-        Net_Worth = call_mint()
+        Net_Worth = Running_nw[-1]
 
         # Create labels
         #Newline label
@@ -77,28 +82,13 @@ class GUI:
         l_2.pack()
 
         #Delta label
-        last_nw = Running_nw[-2] #updates 2x daily, so back 2 for yesterday
+        last_nw = Running_nw[-3] #updates 2x daily, so back 3 for yesterday
         if Net_Worth - last_nw >=0:
             l_3 = tk.Label(self.tk, text = "+$" + "{:,}".format(np.rint(Net_Worth-last_nw).astype(int)),fg='green', bg='black')
         else:
             l_3 = tk.Label(self.tk, text = "-$" + "{:,}".format(np.rint(last_nw-Net_Worth).astype(int)),fg='red', bg='black')
         l_3.config(font =("Courier", 35))
         l_3.pack()
-
-        #Timestamp label
-        l_4 = tk.Label(self.tk, text = "\nLast Updated: " + pd.Timestamp("today").strftime('%Y-%m-%d %X'),fg='white', bg='black')
-        l_4.config(font =("Courier", 10))
-        l_4.pack()
-
-        #Copyright statement label
-        l_5 = tk.Label(self.tk, text = "\u00a9" + " A. Thornton 2021",fg='white', bg='black')
-        l_5.config(font =("Courier", 10))
-        l_5.pack()
-
-        #Update running Net Worth table
-        #Pop oldest value, Push fresh value
-        Running_nw[:-1] = Running_nw[1:]
-        Running_nw[-1] = Net_Worth
 
         #Plot running Net Worth
         fig = plt.figure()
@@ -121,6 +111,16 @@ class GUI:
             bottom=False,         # ticks along the bottom edge are off
             top=False,            # ticks along the top edge are off
             labelbottom=False)    # labels along the bottom edge are off
+
+        #Timestamp label
+        l_4 = tk.Label(self.tk, text = "\nLast Updated: " + pd.Timestamp("today").strftime('%Y-%m-%d %X'),fg='white', bg='black')
+        l_4.config(font =("Courier", 10))
+        l_4.pack()
+
+        #Copyright statement label
+        l_5 = tk.Label(self.tk, text = "\u00a9" + " 2021 A. Thornton ",fg='white', bg='black')
+        l_5.config(font =("Courier", 10))
+        l_5.pack()
 
         #Close chromium
         os.system("pkill chromium")
@@ -151,7 +151,9 @@ class GUI:
 
 
 if __name__ == '__main__':
-    Running_nw = np.zeros(28) #show last 2 weeks, updates 2x a day, init to 0's
+    #First call to Mint API
+    Net_Worth = call_mint()
+    Running_nw = Net_Worth*np.ones(28) #show last 2 weeks, updates 2x a day, init to 0's
     #Main loop
     while 1:
         print(Running_nw[-1])
@@ -161,3 +163,8 @@ if __name__ == '__main__':
 
         #Run GUI until reset every 12 hours
         w.tk.mainloop()
+
+        #Update running Net Worth table
+        #Pop oldest value, Push fresh value
+        Running_nw[:-1] = Running_nw[1:]
+        Running_nw[-1] = try_mint()
