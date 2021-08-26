@@ -99,11 +99,6 @@ class GUI:
 
         # Create labels
 
-        #Newline label
-        l_1 = tk.Label(self.tk, text = "\n",fg='green', bg='black')
-        l_1.config(font =("Courier", 30))
-        l_1.pack()
-
         #Net Worth label
         l_2 = tk.Label(self.tk, text = "$" + "{:,}".format(np.rint(Net_Worth).astype(int)),fg='green', bg='black')
         l_2.config(font =("Courier", 80))
@@ -118,15 +113,20 @@ class GUI:
         l_3.config(font =("Courier", 35))
         l_3.pack()
 
-        #Timestamp label
-        l_4 = tk.Label(self.tk, text = "\nLast Updated: " + pd.Timestamp("today").strftime('%Y-%m-%d %X'),fg='white', bg='black')
-        l_4.config(font =("Courier", 10))
+        #Newline label
+        l_4 = tk.Label(self.tk, text = "\n",fg='green', bg='black')
+        l_4.config(font =("Courier", 30))
         l_4.pack()
 
-        #Copyright statement label
-        l_5 = tk.Label(self.tk, text = "\u00a9" + " 2021 A. Thornton ",fg='white', bg='black')
+        #Timestamp label
+        l_5 = tk.Label(self.tk, text = "\nLast Updated: " + pd.Timestamp("today").strftime('%Y-%m-%d %X'),fg='white', bg='black')
         l_5.config(font =("Courier", 10))
         l_5.pack()
+
+        #Copyright statement label
+        l_6 = tk.Label(self.tk, text = "\u00a9" + " 2021 A. Thornton ",fg='white', bg='black')
+        l_6.config(font =("Courier", 10))
+        l_6.pack()
 
         #Re-round to nearest penny
         self.Running_nw = np.round(Running_nw,2)
