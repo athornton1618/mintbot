@@ -7,6 +7,9 @@ Automatically queries Intuit Mint for display on 5in Raspberry Pi Screen
 3. Elecrow 5in Rpi LCD Display https://www.elecrow.com/wiki/index.php?title=HDMI_Interface_5_Inch_800x480_TFT_Display
 2. Intuit Mint account (It's free!) https://mint.intuit.com/
 
+# Picture
+Completed Raspberry Pi Mintbot (First Release) <br />
+![Alt text](https://github.com/athornton1618/mintbot/blob/main/mintbot_demo.jpg?raw=true)
 
 # Setup
 0. Create an Intuit Mint account 
