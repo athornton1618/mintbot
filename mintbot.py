@@ -43,9 +43,14 @@ def call_mint():
     #Only care about Net Worth, can update later for credit score, etc
     Net_Worth = np.round(mint.get_net_worth(),2)
     mint.close()
+
+    #Close chromium
+    os.system("pkill chromium")
+
     return Net_Worth
 
 def try_mint():
+    #Sometimes the Mint API crashes, so simple try-catch mechanism
     try:
         return call_mint()
     except:
@@ -70,32 +75,12 @@ class GUI:
 
         Net_Worth = Running_nw[-1]
 
-        # Create labels
-        #Newline label
-        l_1 = tk.Label(self.tk, text = "\n",fg='green', bg='black')
-        l_1.config(font =("Courier", 10))
-        l_1.pack()
-
-        #Net Worth label
-        l_2 = tk.Label(self.tk, text = "$" + "{:,}".format(np.rint(Net_Worth).astype(int)),fg='green', bg='black')
-        l_2.config(font =("Courier", 80))
-        l_2.pack()
-
-        #Delta label
-        last_nw = Running_nw[-3] #updates 2x daily, so back 3 for yesterday
-        if Net_Worth - last_nw >=0:
-            l_3 = tk.Label(self.tk, text = "+$" + "{:,}".format(np.rint(Net_Worth-last_nw).astype(int)),fg='green', bg='black')
-        else:
-            l_3 = tk.Label(self.tk, text = "-$" + "{:,}".format(np.rint(last_nw-Net_Worth).astype(int)),fg='red', bg='black')
-        l_3.config(font =("Courier", 35))
-        l_3.pack()
-
         #Plot running Net Worth
         fig = plt.figure()
         fig.set_size_inches(4,1.5)
         ax = fig.add_subplot(1, 1, 1) # nrows, ncols, index
         chart = FigureCanvasTkAgg(fig, self.tk)
-        chart.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH)
+        chart.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH)
         start = Running_nw[0]*np.ones(Running_nw.size) # Dashed red line for starting value 
         plt.plot(Running_nw, 'g',start,'r--')
         ax.set_facecolor('k')
@@ -112,6 +97,27 @@ class GUI:
             top=False,            # ticks along the top edge are off
             labelbottom=False)    # labels along the bottom edge are off
 
+        # Create labels
+
+        #Newline label
+        l_1 = tk.Label(self.tk, text = "\n",fg='green', bg='black')
+        l_1.config(font =("Courier", 30))
+        l_1.pack()
+
+        #Net Worth label
+        l_2 = tk.Label(self.tk, text = "$" + "{:,}".format(np.rint(Net_Worth).astype(int)),fg='green', bg='black')
+        l_2.config(font =("Courier", 80))
+        l_2.pack()
+
+        #Delta label
+        last_nw = Running_nw[-3] #updates 2x daily, so back 3 for yesterday
+        if Net_Worth - last_nw >=0:
+            l_3 = tk.Label(self.tk, text = "+$" + "{:,}".format(np.rint(Net_Worth-last_nw).astype(int)),fg='green', bg='black')
+        else:
+            l_3 = tk.Label(self.tk, text = "-$" + "{:,}".format(np.rint(last_nw-Net_Worth).astype(int)),fg='red', bg='black')
+        l_3.config(font =("Courier", 35))
+        l_3.pack()
+
         #Timestamp label
         l_4 = tk.Label(self.tk, text = "\nLast Updated: " + pd.Timestamp("today").strftime('%Y-%m-%d %X'),fg='white', bg='black')
         l_4.config(font =("Courier", 10))
@@ -122,21 +128,12 @@ class GUI:
         l_5.config(font =("Courier", 10))
         l_5.pack()
 
-        #Close chromium
-        os.system("pkill chromium")
-
         #Re-round to nearest penny
         self.Running_nw = np.round(Running_nw,2)
 
         #Reset 2x a day, kill GUI and remake
         reset = 1000*60*60*12
         self.tk.after(reset, lambda: self.tk.destroy())
-
-
-    def clearFrame(self):
-        # destroy all widgets from frame
-        for label in self.labels:
-            label.destroy()
 
     def toggle_fullscreen(self, event=None):
         #F11 to enter fullscreen, Escape to exit to Desktop
@@ -152,8 +149,8 @@ class GUI:
 
 if __name__ == '__main__':
     #First call to Mint API
-    Net_Worth = call_mint()
-    Running_nw = Net_Worth*np.ones(28) #show last 2 weeks, updates 2x a day, init to 0's
+    Net_Worth = try_mint()
+    Running_nw = Net_Worth*np.ones(60) #show last month, updates 2x a day, init all to current NW
     #Main loop
     while 1:
         print(Running_nw[-1])
