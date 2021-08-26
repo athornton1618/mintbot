@@ -161,6 +161,9 @@ if __name__ == '__main__':
         #Run GUI until reset every 12 hours
         w.tk.mainloop()
 
+        #Clear Matplotlib Buffer
+        plt.close(1)
+
         #Update running Net Worth table
         #Pop oldest value, Push fresh value
         Running_nw[:-1] = Running_nw[1:]
