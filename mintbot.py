@@ -52,6 +52,7 @@ def call_mint():
 def try_mint():
     #Sometimes the Mint API crashes, so simple try-catch mechanism
     try:
+        call_mint() #call twice to refresh API
         return call_mint()
     except:
         return try_mint()
@@ -107,9 +108,9 @@ class GUI:
         #Delta label
         last_nw = Running_nw[-3] #updates 2x daily, so back 3 for yesterday
         if Net_Worth - last_nw >=0:
-            l_3 = tk.Label(self.tk, text = "+$" + "{:,}".format(np.rint(Net_Worth-last_nw).astype(int)),fg='green', bg='black')
+            l_3 = tk.Label(self.tk, text = "\u25B2 $" + "{:,}".format(np.rint(Net_Worth-last_nw).astype(int)),fg='green', bg='black')
         else:
-            l_3 = tk.Label(self.tk, text = "-$" + "{:,}".format(np.rint(last_nw-Net_Worth).astype(int)),fg='red', bg='black')
+            l_3 = tk.Label(self.tk, text = "\u25BC $" + "{:,}".format(np.rint(last_nw-Net_Worth).astype(int)),fg='red', bg='black')
         l_3.config(font =("Courier", 35))
         l_3.pack()
 
